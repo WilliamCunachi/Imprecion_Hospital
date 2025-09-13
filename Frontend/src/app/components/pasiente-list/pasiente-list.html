@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Lista de Pacientes</h2>
+
+  <button class="btn btn-primary mb-3" (click)="imprimir()">🖨️ Imprimir Lista</button>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="tablaPacientes">
+      <thead class="table-dark">
+        <tr>
+          <th>Id</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Cédula</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Teléfono</th>
+          <th class="no-print">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pasientes">
+          <td>{{ p.id }}</td>
+          <td>{{ p.nombres }}</td>
+          <td>{{ p.apellidos }}</td>
+          <td>{{ p.cedula }}</td>
+          <td>{{ p.fechaNacimiento | date:'dd/MM/yyyy' }}</td>
+          <td>{{ p.telefono }}</td>
+          <td class="no-print">
+            <button class="btn btn-sm btn-warning me-2" (click)="abrirModalEditar(p)">✏️ Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarPaciente(p.id)">🗑️ Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal de edición -->
+  <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Paciente</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form #formEditar="ngForm">
+            <div class="mb-3">
+              <label class="form-label">Nombres</label>
+              <input type="text" class="form-control" [(ngModel)]="pacienteSeleccionado.nombres" name="nombres">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Apellidos</label>
+              <input type="text" class="form-control" [(ngModel)]="pacienteSeleccionado.apellidos" name="apellidos">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Cédula</label>
+              <input type="text" class="form-control" [(ngModel)]="pacienteSeleccionado.cedula" name="cedula">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Fecha de Nacimiento</label>
+              <input type="date" class="form-control" [(ngModel)]="pacienteSeleccionado.fechaNacimiento" name="fechaNacimiento">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Teléfono</label>
+              <input type="text" class="form-control" [(ngModel)]="pacienteSeleccionado.telefono" name="telefono">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+          <button class="btn btn-primary" (click)="guardarEdicion()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

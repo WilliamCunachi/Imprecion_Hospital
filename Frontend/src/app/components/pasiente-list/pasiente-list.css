@@ -1,0 +1,21 @@
+@media print {
+ button, .no-print {
+    display: none !important;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12pt;
+  }
+
+  th, td {
+    border: 1px solid #000;
+    padding: 6px;
+  }
+
+  thead {
+    background-color: #343a40; /* similar a table-dark */
+    color: white;
+  }
+}
